@@ -1,0 +1,89 @@
+create table rol(
+ idrol serial not null,
+	 nombre varchar(30) not null,
+	 primary key(idrol)
+ );
+
+insert into rol values(1,'Administrador');
+
+
+create table genero(
+   idgenero integer not null,
+    nombre varchar(12) not null,
+  primary key(idgenero)
+  );
+
+  
+ insert into genero values (1, 'Masculino');
+ insert into genero values (2, 'Femenino');
+ insert into genero values (3, 'Otro');
+ 
+ create table persona(
+ idpersona serial not null,
+	 cedula varchar(15),
+	 nombre varchar(40) not null,
+	 ap_paterno varchar(40) not null,
+	 ap_materno varchar(30),
+	 telefono varchar(20),
+	 fotografia varchar(255),
+	 fecha date not null,
+	 hora time not null,
+	 correo varchar(200),
+	 estado integer default 1 not null,
+	 idgenero integer not null, 
+	 foreign key (idgenero) references genero (idgenero),
+	  primary key(idpersona)
+ );
+insert into persona values (1,13198378, 'Nestor Abila', 'Flores', '',67538383,'','2025-04-22', '10:30'
+							 ,'nestor@gmail.com',1, 2 );
+
+create table rol_persona(
+idpersona integer not null,
+idrol integer not null,
+FOREIGN key (idpersona) references persona (idpersona),
+foreign key (idrol) references rol (idrol),
+primary key (idrol, idpersona)
+ )
+ 
+insert into rol_persona values (1,1); 
+
+ create table credencial(
+ usuario varchar(30) not null,
+	 contrasena varchar(200) not null,
+	  primary key(usuario),
+	 idpersona integer unique not null,
+	  foreign key (idpersona) references persona (idpersona)
+ );
+ 
+insert into credencial values ('admin', '12345',1);
+select*from credencial;
+
+
+CREATE TABLE permiso(
+    idpermiso SERIAL PRIMARY KEY,
+    codigo VARCHAR(100) UNIQUE NOT NULL,
+    descripcion VARCHAR(200)
+);
+
+
+CREATE TABLE persona_permiso(
+    idpersona INTEGER NOT NULL,
+    idpermiso INTEGER NOT NULL,
+    tipo CHAR(1) NOT NULL,
+    PRIMARY KEY(idpersona,idpermiso),
+    FOREIGN KEY (idpersona) REFERENCES persona(idpersona),
+    FOREIGN KEY (idpermiso) REFERENCES permiso(idpermiso),
+    CHECK(tipo IN ('A','D'))
+);
+
+
+CREATE TABLE rol_permiso(
+    idrol INTEGER NOT NULL,
+    idpermiso INTEGER NOT NULL,
+    PRIMARY KEY(idrol, idpermiso),
+    FOREIGN KEY (idrol) REFERENCES rol(idrol),
+    FOREIGN KEY (idpermiso) REFERENCES permiso(idpermiso)
+);
+
+ persona.belongsToMany(rol, { as: 'rol', through: rol_persona, foreignKey: "idpersona", otherKey: "idrol" });
+

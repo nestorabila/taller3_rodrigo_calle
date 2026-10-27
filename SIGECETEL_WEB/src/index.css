@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   SIGECETEL · sistema visual
+   Una sola tipografía (Inter, incluida en el proyecto: funciona
+   sin internet) y una sola paleta para todo el sistema.
+
+   Paleta "Acero y celeste": minimalista, un solo color de acento.
+     acero    grises fríos de torre de antena (fondos, textos, bordes)
+     celeste  azul celeste de señal: el único acento
+              (botones, selección, enlaces, estado activo)
+     alerta  rojo de baliza, solo para bloquear / errores
+     aviso   ámbar de marcador de evidencia, solo para advertencias
+
+   Las familias de Tailwind se redirigen a estas rampas, así que
+   cualquier clase (blue-, indigo-, sky-, violet-, rose-...) usada
+   en cualquier pantalla sale siempre de la misma paleta.
+   Todos los tonos de color (azul, índigo, violeta, verde...) apuntan al
+   mismo acento: por eso el sistema se ve de un solo color.
+   ============================================================ */
+
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("./assets/fonts/inter-400.woff") format("woff"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap; src: url("./assets/fonts/inter-500.woff") format("woff"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url("./assets/fonts/inter-600.woff") format("woff"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 700; font-display: swap; src: url("./assets/fonts/inter-700.woff") format("woff"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 800 900; font-display: swap; src: url("./assets/fonts/inter-800.woff") format("woff"); }
+
+@theme {
+  --font-sans: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  /* Los datos (coordenadas, IMEI, horas) usan la misma familia con cifras de ancho fijo */
+  --font-mono: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+
+  /* acero */
+  --color-slate-50: oklch(0.985 0.003 245); --color-slate-100: oklch(0.967 0.006 245); --color-slate-200: oklch(0.925 0.01 245); --color-slate-300: oklch(0.87 0.014 246); --color-slate-400: oklch(0.71 0.02 247); --color-slate-500: oklch(0.555 0.024 248); --color-slate-600: oklch(0.44 0.025 249); --color-slate-700: oklch(0.37 0.025 250); --color-slate-800: oklch(0.27 0.022 251); --color-slate-900: oklch(0.2 0.02 252); --color-slate-950: oklch(0.145 0.016 253);
+  --color-gray-50: oklch(0.985 0.003 245); --color-gray-100: oklch(0.967 0.006 245); --color-gray-200: oklch(0.925 0.01 245); --color-gray-300: oklch(0.87 0.014 246); --color-gray-400: oklch(0.71 0.02 247); --color-gray-500: oklch(0.555 0.024 248); --color-gray-600: oklch(0.44 0.025 249); --color-gray-700: oklch(0.37 0.025 250); --color-gray-800: oklch(0.27 0.022 251); --color-gray-900: oklch(0.2 0.02 252); --color-gray-950: oklch(0.145 0.016 253);
+  --color-zinc-50: oklch(0.985 0.003 245); --color-zinc-100: oklch(0.967 0.006 245); --color-zinc-200: oklch(0.925 0.01 245); --color-zinc-300: oklch(0.87 0.014 246); --color-zinc-400: oklch(0.71 0.02 247); --color-zinc-500: oklch(0.555 0.024 248); --color-zinc-600: oklch(0.44 0.025 249); --color-zinc-700: oklch(0.37 0.025 250); --color-zinc-800: oklch(0.27 0.022 251); --color-zinc-900: oklch(0.2 0.02 252); --color-zinc-950: oklch(0.145 0.016 253);
+  --color-neutral-50: oklch(0.985 0.003 245); --color-neutral-100: oklch(0.967 0.006 245); --color-neutral-200: oklch(0.925 0.01 245); --color-neutral-300: oklch(0.87 0.014 246); --color-neutral-400: oklch(0.71 0.02 247); --color-neutral-500: oklch(0.555 0.024 248); --color-neutral-600: oklch(0.44 0.025 249); --color-neutral-700: oklch(0.37 0.025 250); --color-neutral-800: oklch(0.27 0.022 251); --color-neutral-900: oklch(0.2 0.02 252); --color-neutral-950: oklch(0.145 0.016 253);
+  --color-stone-50: oklch(0.985 0.003 245); --color-stone-100: oklch(0.967 0.006 245); --color-stone-200: oklch(0.925 0.01 245); --color-stone-300: oklch(0.87 0.014 246); --color-stone-400: oklch(0.71 0.02 247); --color-stone-500: oklch(0.555 0.024 248); --color-stone-600: oklch(0.44 0.025 249); --color-stone-700: oklch(0.37 0.025 250); --color-stone-800: oklch(0.27 0.022 251); --color-stone-900: oklch(0.2 0.02 252); --color-stone-950: oklch(0.145 0.016 253);
+  /* celeste */
+  --color-blue-50: oklch(0.977 0.013 236); --color-blue-100: oklch(0.951 0.026 236); --color-blue-200: oklch(0.901 0.058 232); --color-blue-300: oklch(0.828 0.111 230); --color-blue-400: oklch(0.746 0.16 232); --color-blue-500: oklch(0.66 0.165 238); --color-blue-600: oklch(0.56 0.155 245); --color-blue-700: oklch(0.48 0.135 248); --color-blue-800: oklch(0.41 0.11 250); --color-blue-900: oklch(0.35 0.085 251); --color-blue-950: oklch(0.26 0.06 252);
+  --color-indigo-50: oklch(0.977 0.013 236); --color-indigo-100: oklch(0.951 0.026 236); --color-indigo-200: oklch(0.901 0.058 232); --color-indigo-300: oklch(0.828 0.111 230); --color-indigo-400: oklch(0.746 0.16 232); --color-indigo-500: oklch(0.66 0.165 238); --color-indigo-600: oklch(0.56 0.155 245); --color-indigo-700: oklch(0.48 0.135 248); --color-indigo-800: oklch(0.41 0.11 250); --color-indigo-900: oklch(0.35 0.085 251); --color-indigo-950: oklch(0.26 0.06 252);
+  --color-sky-50: oklch(0.977 0.013 236); --color-sky-100: oklch(0.951 0.026 236); --color-sky-200: oklch(0.901 0.058 232); --color-sky-300: oklch(0.828 0.111 230); --color-sky-400: oklch(0.746 0.16 232); --color-sky-500: oklch(0.66 0.165 238); --color-sky-600: oklch(0.56 0.155 245); --color-sky-700: oklch(0.48 0.135 248); --color-sky-800: oklch(0.41 0.11 250); --color-sky-900: oklch(0.35 0.085 251); --color-sky-950: oklch(0.26 0.06 252);
+  --color-cyan-50: oklch(0.977 0.013 236); --color-cyan-100: oklch(0.951 0.026 236); --color-cyan-200: oklch(0.901 0.058 232); --color-cyan-300: oklch(0.828 0.111 230); --color-cyan-400: oklch(0.746 0.16 232); --color-cyan-500: oklch(0.66 0.165 238); --color-cyan-600: oklch(0.56 0.155 245); --color-cyan-700: oklch(0.48 0.135 248); --color-cyan-800: oklch(0.41 0.11 250); --color-cyan-900: oklch(0.35 0.085 251); --color-cyan-950: oklch(0.26 0.06 252);
+  --color-violet-50: oklch(0.977 0.013 236); --color-violet-100: oklch(0.951 0.026 236); --color-violet-200: oklch(0.901 0.058 232); --color-violet-300: oklch(0.828 0.111 230); --color-violet-400: oklch(0.746 0.16 232); --color-violet-500: oklch(0.66 0.165 238); --color-violet-600: oklch(0.56 0.155 245); --color-violet-700: oklch(0.48 0.135 248); --color-violet-800: oklch(0.41 0.11 250); --color-violet-900: oklch(0.35 0.085 251); --color-violet-950: oklch(0.26 0.06 252);
+  --color-purple-50: oklch(0.977 0.013 236); --color-purple-100: oklch(0.951 0.026 236); --color-purple-200: oklch(0.901 0.058 232); --color-purple-300: oklch(0.828 0.111 230); --color-purple-400: oklch(0.746 0.16 232); --color-purple-500: oklch(0.66 0.165 238); --color-purple-600: oklch(0.56 0.155 245); --color-purple-700: oklch(0.48 0.135 248); --color-purple-800: oklch(0.41 0.11 250); --color-purple-900: oklch(0.35 0.085 251); --color-purple-950: oklch(0.26 0.06 252);
+  --color-fuchsia-50: oklch(0.977 0.013 236); --color-fuchsia-100: oklch(0.951 0.026 236); --color-fuchsia-200: oklch(0.901 0.058 232); --color-fuchsia-300: oklch(0.828 0.111 230); --color-fuchsia-400: oklch(0.746 0.16 232); --color-fuchsia-500: oklch(0.66 0.165 238); --color-fuchsia-600: oklch(0.56 0.155 245); --color-fuchsia-700: oklch(0.48 0.135 248); --color-fuchsia-800: oklch(0.41 0.11 250); --color-fuchsia-900: oklch(0.35 0.085 251); --color-fuchsia-950: oklch(0.26 0.06 252);
+  --color-emerald-50: oklch(0.977 0.013 236); --color-emerald-100: oklch(0.951 0.026 236); --color-emerald-200: oklch(0.901 0.058 232); --color-emerald-300: oklch(0.828 0.111 230); --color-emerald-400: oklch(0.746 0.16 232); --color-emerald-500: oklch(0.66 0.165 238); --color-emerald-600: oklch(0.56 0.155 245); --color-emerald-700: oklch(0.48 0.135 248); --color-emerald-800: oklch(0.41 0.11 250); --color-emerald-900: oklch(0.35 0.085 251); --color-emerald-950: oklch(0.26 0.06 252);
+  --color-green-50: oklch(0.977 0.013 236); --color-green-100: oklch(0.951 0.026 236); --color-green-200: oklch(0.901 0.058 232); --color-green-300: oklch(0.828 0.111 230); --color-green-400: oklch(0.746 0.16 232); --color-green-500: oklch(0.66 0.165 238); --color-green-600: oklch(0.56 0.155 245); --color-green-700: oklch(0.48 0.135 248); --color-green-800: oklch(0.41 0.11 250); --color-green-900: oklch(0.35 0.085 251); --color-green-950: oklch(0.26 0.06 252);
+  --color-teal-50: oklch(0.977 0.013 236); --color-teal-100: oklch(0.951 0.026 236); --color-teal-200: oklch(0.901 0.058 232); --color-teal-300: oklch(0.828 0.111 230); --color-teal-400: oklch(0.746 0.16 232); --color-teal-500: oklch(0.66 0.165 238); --color-teal-600: oklch(0.56 0.155 245); --color-teal-700: oklch(0.48 0.135 248); --color-teal-800: oklch(0.41 0.11 250); --color-teal-900: oklch(0.35 0.085 251); --color-teal-950: oklch(0.26 0.06 252);
+  --color-lime-50: oklch(0.977 0.013 236); --color-lime-100: oklch(0.951 0.026 236); --color-lime-200: oklch(0.901 0.058 232); --color-lime-300: oklch(0.828 0.111 230); --color-lime-400: oklch(0.746 0.16 232); --color-lime-500: oklch(0.66 0.165 238); --color-lime-600: oklch(0.56 0.155 245); --color-lime-700: oklch(0.48 0.135 248); --color-lime-800: oklch(0.41 0.11 250); --color-lime-900: oklch(0.35 0.085 251); --color-lime-950: oklch(0.26 0.06 252);
+  /* alerta */
+  --color-red-50: oklch(0.971 0.013 17); --color-red-100: oklch(0.936 0.032 18); --color-red-200: oklch(0.885 0.062 18); --color-red-300: oklch(0.808 0.114 20); --color-red-400: oklch(0.704 0.191 22); --color-red-500: oklch(0.637 0.237 25); --color-red-600: oklch(0.577 0.245 27); --color-red-700: oklch(0.505 0.213 27); --color-red-800: oklch(0.444 0.177 27); --color-red-900: oklch(0.396 0.141 26); --color-red-950: oklch(0.258 0.092 26);
+  --color-rose-50: oklch(0.971 0.013 17); --color-rose-100: oklch(0.936 0.032 18); --color-rose-200: oklch(0.885 0.062 18); --color-rose-300: oklch(0.808 0.114 20); --color-rose-400: oklch(0.704 0.191 22); --color-rose-500: oklch(0.637 0.237 25); --color-rose-600: oklch(0.577 0.245 27); --color-rose-700: oklch(0.505 0.213 27); --color-rose-800: oklch(0.444 0.177 27); --color-rose-900: oklch(0.396 0.141 26); --color-rose-950: oklch(0.258 0.092 26);
+  --color-pink-50: oklch(0.971 0.013 17); --color-pink-100: oklch(0.936 0.032 18); --color-pink-200: oklch(0.885 0.062 18); --color-pink-300: oklch(0.808 0.114 20); --color-pink-400: oklch(0.704 0.191 22); --color-pink-500: oklch(0.637 0.237 25); --color-pink-600: oklch(0.577 0.245 27); --color-pink-700: oklch(0.505 0.213 27); --color-pink-800: oklch(0.444 0.177 27); --color-pink-900: oklch(0.396 0.141 26); --color-pink-950: oklch(0.258 0.092 26);
+  /* aviso */
+  --color-amber-50: oklch(0.987 0.022 95); --color-amber-100: oklch(0.962 0.059 96); --color-amber-200: oklch(0.924 0.12 96); --color-amber-300: oklch(0.879 0.169 92); --color-amber-400: oklch(0.828 0.189 84); --color-amber-500: oklch(0.769 0.188 70); --color-amber-600: oklch(0.666 0.179 58); --color-amber-700: oklch(0.555 0.163 49); --color-amber-800: oklch(0.473 0.137 46); --color-amber-900: oklch(0.414 0.112 46); --color-amber-950: oklch(0.279 0.077 46);
+  --color-yellow-50: oklch(0.987 0.022 95); --color-yellow-100: oklch(0.962 0.059 96); --color-yellow-200: oklch(0.924 0.12 96); --color-yellow-300: oklch(0.879 0.169 92); --color-yellow-400: oklch(0.828 0.189 84); --color-yellow-500: oklch(0.769 0.188 70); --color-yellow-600: oklch(0.666 0.179 58); --color-yellow-700: oklch(0.555 0.163 49); --color-yellow-800: oklch(0.473 0.137 46); --color-yellow-900: oklch(0.414 0.112 46); --color-yellow-950: oklch(0.279 0.077 46);
+  --color-orange-50: oklch(0.987 0.022 95); --color-orange-100: oklch(0.962 0.059 96); --color-orange-200: oklch(0.924 0.12 96); --color-orange-300: oklch(0.879 0.169 92); --color-orange-400: oklch(0.828 0.189 84); --color-orange-500: oklch(0.769 0.188 70); --color-orange-600: oklch(0.666 0.179 58); --color-orange-700: oklch(0.555 0.163 49); --color-orange-800: oklch(0.473 0.137 46); --color-orange-900: oklch(0.414 0.112 46); --color-orange-950: oklch(0.279 0.077 46);
+
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--color-slate-50);
+    color: var(--color-slate-800);
+  }
+  .dark body {
+    background: var(--color-slate-950);
+    color: var(--color-slate-100);
+  }
+
+  h1, h2, h3 { letter-spacing: -0.015em; }
+
+  /* Formularios y mapa heredan la tipografía del sistema */
+  button, input, select, textarea, optgroup { font-family: inherit; }
+  .leaflet-container, .leaflet-popup-content, .leaflet-tooltip { font-family: var(--font-sans); }
+
+  /* Cifras alineadas en tablas y en todo lo que antes era monoespaciado */
+  table, .font-mono, .tabular-nums { font-variant-numeric: tabular-nums; }
+  .font-mono { letter-spacing: 0; }
+
+  /* Un solo trazo para todos los iconos */
+  svg.lucide { stroke-width: 1.75; }
+
+  ::selection { background: var(--color-blue-200); color: var(--color-slate-900); }
+  .dark ::selection { background: var(--color-blue-700); color: #fff; }
+
+  :focus-visible { outline: 2px solid var(--color-blue-500); outline-offset: 2px; }
+  input:focus-visible, textarea:focus-visible, select:focus-visible { outline-offset: 0; }
+
+  * { scrollbar-width: thin; scrollbar-color: var(--color-slate-300) transparent; }
+  .dark * { scrollbar-color: var(--color-slate-700) transparent; }
+}
+
+/* Impresión del reporte: la página deja de ser una pantalla fija y fluye en hojas */
+@media print {
+  html, body { background: #fff !important; }
+  .h-screen, .min-h-screen { height: auto !important; min-height: 0 !important; }
+  .w-screen { width: auto !important; }
+  .overflow-hidden, .overflow-y-auto { overflow: visible !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 14mm; }
+}
